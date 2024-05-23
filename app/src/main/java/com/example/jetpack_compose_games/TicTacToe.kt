@@ -1,9 +1,9 @@
 package com.example.jetpack_compose_games
+
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,16 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TicTacToeGame() {
+fun TicTacToeGame(onBack: () -> Unit) {
     var currentPlayer by remember { mutableStateOf("X") }
     var board by remember { mutableStateOf(List(3) { mutableStateListOf("", "", "") }) }
     var winner by remember { mutableStateOf<String?>(null) }
@@ -87,6 +84,10 @@ fun TicTacToeGame() {
                     Text("Reiniciar Juego")
                 }
             }
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = onBack) {
+                Text("Volver al Menú Principal")
+            }
         }
     }
 }
@@ -126,10 +127,4 @@ fun checkWinner(board: List<List<String>>): String? {
     if (emptyCount == 0) return "Draw"
 
     return null
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TicTacToeGame()
 }

@@ -19,14 +19,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.random.Random
 
 
 @Composable
-fun GuessTheNumberGame() {
+fun GuessTheNumberGame(onBack: () -> Unit) {
     var guess by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("Adivina el número entre 1 y 100") }
     val targetNumber = remember { Random.nextInt(1, 101) }
@@ -70,10 +69,12 @@ fun GuessTheNumberGame() {
         ) {
             Text("Adivinar")
         }
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = onBack,
+            modifier = Modifier.padding(8.dp)
+        ) {
+            Text("Volver al Menú Principal")
+        }
     }
-}
-@Preview(showBackground = true)
-@Composable
-fun GuessTheNumberGamePreview() {
-    GuessTheNumberGame()
 }

@@ -17,9 +17,9 @@ class MainActivity : ComponentActivity() {
                 var selectedGame by remember { mutableStateOf<Game?>(null) }
 
                 when (selectedGame) {
-                    Game.MEMORY -> MemoryGame()
-                    Game.TIC_TAC_TOE -> TicTacToeGame()
-                    Game.GUESS_THE_NUMBER -> GuessTheNumberGame()
+                    Game.MEMORY -> MemoryGame(onBack = { selectedGame = null })
+                    Game.TIC_TAC_TOE -> TicTacToeGame(onBack = { selectedGame = null })
+                    Game.GUESS_THE_NUMBER -> GuessTheNumberGame(onBack = { selectedGame = null })
                     null -> GameMenu(onGameSelected = { selectedGame = it })
                 }
             }

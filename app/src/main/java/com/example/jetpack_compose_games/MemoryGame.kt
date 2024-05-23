@@ -1,9 +1,8 @@
 package com.example.jetpack_compose_games
 
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 @Composable
-fun MemoryGame() {
+fun MemoryGame(onBack: () -> Unit) {
     val colors = listOf(
         Color.Red, Color.Green, Color.Blue, Color.Magenta, Color.Cyan,
         Color.Yellow, Color.Gray, Color.LightGray, Color.DarkGray, Color.Black
@@ -75,38 +74,29 @@ fun MemoryGame() {
                 }
             }
         }
-    }
 
-    if (matched.all { it }) {
-        Spacer(modifier = Modifier.height(32.dp)) // Add space between the board and the congratulations message
-        Text(
-            text = "Congratulations! You won in $moves moves!",
-            style = MaterialTheme.typography.headlineMedium
-        )
-    }
-}
+        if (matched.all { it }) {
+            Spacer(modifier = Modifier.height(32.dp)) // Add space between the board and the congratulations message
+            Text(
+                text = "Congratulations! You won in $moves moves!",
+                style = MaterialTheme.typography.headlineMedium
+            )
+        }
 
-
-@Composable
-fun MemoryCard(color: Color, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .padding(4.dp)
-            .size(60.dp)
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = color),
-        elevation = CardDefaults.cardElevation(4.dp)
-    ) {
-        Box(contentAlignment = Alignment.Center) {
-            // Empty Box to maintain the structure
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onBack) {
+            Text("Volver al Menú Principal")
         }
     }
 }
 
-
-@Preview(showBackground = true)
 @Composable
-fun MemoryGamePreview() {
-    MemoryGame()
+fun MemoryCard(color: Color, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .size(60.dp)
+            .padding(4.dp)
+            .background(color)
+            .clickable(onClick = onClick)
+    )
 }
